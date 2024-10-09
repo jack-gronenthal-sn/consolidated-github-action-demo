@@ -61,7 +61,7 @@ jobs:
           productModelId: ${{ 'modelId' }}
           requestedBy: ${{ 'devops' }}
           lifecycleStage: ${{ 'pre_production' }}
-          fetchVulnerabilityInfo: ${{ inputs.fetch-vulnerability-info || 'false" }}
+          fetchVulnerabilityInfo: ${{ inputs.fetch-vulnerability-info || 'false' }}
           fetchPackageInfo: ${{ inputs.fetch-package-info || 'false' }}
           sbomSource: ${{ 'github-action' }}
           maxStatusPollAttempts: ${{ inputs.max-status-poll-attempts || '5' }}
