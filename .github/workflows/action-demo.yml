@@ -1,0 +1,69 @@
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      provider:
+        description: 'The provider type for the action.'
+        required: true
+        type: choice
+        default: 'repository'
+        options:
+          - repository
+          - dependencyGraph
+      repository:
+        description: 'The repository that holds the target SBOM documents.'
+        required: true
+        default: 'github-action-consumer'
+      path:
+        description: 'The path to the target SBOM document.'
+        required: false
+        default:  'sboms/sample_sbom.json'
+      fetch-package-info:
+        description: 'Fetch Package Info'
+        required: false
+        default: 'false'
+      fetch-vulnerability-info:
+        description: 'Fetch Vulnerability Info'
+        required: false
+        default: 'false'
+      max-status-poll-attempts:
+        description: 'The maximum number of status poll attempts.'
+        required: false
+        default: '5'
+      status-attempt-interval:
+        description: 'The time in ms between status poll attempts.'
+        required: false
+        default: '10000'
+      ref:
+        description: "For the repository provider type, the branch, tag, or commit reference where the file can be found."
+        required: false
+
+jobs:
+  sbom-upload:
+    runs-on: ubuntu-latest
+    name: SBOM Workspace Upload
+    steps:
+      - name: Upload
+        id: upload
+        uses: ServiceNow/vulnerability-response@v2.0.2
+        with:
+          snSbomUser: ${{ secrets.SN_SBOM_USERNAME }}
+          snSbomPassword: ${{ secrets.SN_SBOM_PASSWORD }}
+          snInstanceUrl: ${{ secrets.SN_INSTANCE_URL }}
+          ghToken: ${{ secrets.GH_TOKEN }}
+          ghAccountOwner: ${{ 'jack-gronenthal-sn' }}
+          provider:  ${{ inputs.provider || 'dependencyGraph' }}
+          repository:  ${{ inputs.repository || 'github-action-consumer' }}
+          path: ${{ inputs.path || 'sboms/sample_sbom.json' }}
+          businessApplicationId: ${{ inputs.business-application-id || 'Application ID' }}
+          businessApplicationName: ${{ inputs.business-application-name || 'Business Name' }}
+          buildId: ${{ inputs.build-id || 'xyz123' }}
+          productModelId: ${{ inputs.product-model-id || 'modelId' }}
+          requestedBy: ${{ inputs.requested-by || 'devops' }}
+          lifecycleStage: ${{ inputs.lifecycle-stage || 'pre_production' }}
+          fetchVulnerabilityInfo: ${{ inputs.fetch-vulnerability-info || 'false" }}
+          fetchPackageInfo: ${{ inputs.fetch-package-info || 'false' }}
+          sbomSource: ${{ inputs.source-sbom || 'github-action' }}
+          maxStatusPollAttempts: ${{ inputs.max-status-poll-attempts || '5' }}
+          statusAttemptInterval: ${{ inputs.status-attempt-interval || '10000' }}
+          ref: ${{ inputs.ref }}
