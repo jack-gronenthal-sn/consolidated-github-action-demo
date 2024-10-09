@@ -55,15 +55,15 @@ jobs:
           provider:  ${{ inputs.provider || 'dependencyGraph' }}
           repository:  ${{ inputs.repository || 'github-action-consumer' }}
           path: ${{ inputs.path || 'sboms/sample_sbom.json' }}
-          businessApplicationId: ${{ inputs.business-application-id || 'Application ID' }}
-          businessApplicationName: ${{ inputs.business-application-name || 'Business Name' }}
-          buildId: ${{ inputs.build-id || 'xyz123' }}
-          productModelId: ${{ inputs.product-model-id || 'modelId' }}
-          requestedBy: ${{ inputs.requested-by || 'devops' }}
-          lifecycleStage: ${{ inputs.lifecycle-stage || 'pre_production' }}
+          businessApplicationId: ${{ 'Application ID' }}
+          businessApplicationName: ${{ 'Business Name' }}
+          buildId: ${{ 'xyz123' }}
+          productModelId: ${{ 'modelId' }}
+          requestedBy: ${{ 'devops' }}
+          lifecycleStage: ${{ 'pre_production' }}
           fetchVulnerabilityInfo: ${{ inputs.fetch-vulnerability-info || 'false" }}
           fetchPackageInfo: ${{ inputs.fetch-package-info || 'false' }}
-          sbomSource: ${{ inputs.source-sbom || 'github-action' }}
+          sbomSource: ${{ 'github-action' }}
           maxStatusPollAttempts: ${{ inputs.max-status-poll-attempts || '5' }}
           statusAttemptInterval: ${{ inputs.status-attempt-interval || '10000' }}
           ref: ${{ inputs.ref }}
