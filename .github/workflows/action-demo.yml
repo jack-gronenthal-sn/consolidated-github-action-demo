@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Upload
         id: upload
-        uses: ServiceNow/vulnerability-response@v2.0.2
+        uses: ServiceNow/vulnerability-response@v1.0.0
         with:
           snSbomUser: ${{ secrets.SN_SBOM_USERNAME }}
           snSbomPassword: ${{ secrets.SN_SBOM_PASSWORD }}
